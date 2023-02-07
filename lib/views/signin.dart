@@ -15,7 +15,7 @@ class _SignInState extends State<SignIn> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void wrongMessage(String message) {
+  void showErrorMessage(String message) {
     showDialog(
         context: context,
         builder: (context) {
@@ -50,19 +50,17 @@ class _SignInState extends State<SignIn> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        wrongMessage('No user found for that email.');
-      } 
-      
-      else if (e.code == 'wrong-password') {
-        wrongMessage('Wrong password provided for that user.');
-      }
-    }
 
-    // pop loading
-    // ignore: use_build_context_synchronously
-    Navigator.pop(context);
+      // pop loading
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop loading
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+      // show error message
+      showErrorMessage(e.code);
+    }
   }
 
   @override

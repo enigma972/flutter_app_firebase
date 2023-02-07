@@ -22,8 +22,8 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('You\'re logged in!'),
+      body: Center(
+        child: Text('You\'re logged in! ${user.email}'),
       ),
     );
   }
