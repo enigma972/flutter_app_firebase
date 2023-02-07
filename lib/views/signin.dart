@@ -2,14 +2,68 @@ import 'package:flutter/material.dart';
 import 'components/input.dart';
 import 'components/button.dart';
 import 'components/square_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
-  final _usernameController = TextEditingController();
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void signUserIn() {}
+  void wrongMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
+  }
+
+  void signUserIn() async {
+    // show loading
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+
+    // sign in user
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        wrongMessage('No user found for that email.');
+      } 
+      
+      else if (e.code == 'wrong-password') {
+        wrongMessage('Wrong password provided for that user.');
+      }
+    }
+
+    // pop loading
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +86,10 @@ class SignIn extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 25),
-                // username textfield
+                // Email textfield
                 Input(
-                  hintText: 'Username',
-                  controller: _usernameController,
+                  hintText: 'Email',
+                  controller: _emailController,
                 ),
 
                 const SizedBox(height: 10),

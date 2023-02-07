@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "826156598806",
+    "project_id": "learning-env-66ece",
+    "storage_bucket": "learning-env-66ece.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826156598806:android:d047d5192b7393bd921737",
+        "android_client_info": {
+          "package_name": "com.example.fire_cars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826156598806-nhvmpdna37ibr41aooickb4kg0mmspbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlEgIpL9llUdJJXranA243v7-qI2FjgbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826156598806-nhvmpdna37ibr41aooickb4kg0mmspbl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "826156598806-nob7aah66as5qjnv3l4c1uo9uapqfjns.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fireCars"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826156598806:android:328ddafa7cbfa384921737",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826156598806-nhvmpdna37ibr41aooickb4kg0mmspbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlEgIpL9llUdJJXranA243v7-qI2FjgbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826156598806-nhvmpdna37ibr41aooickb4kg0mmspbl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "826156598806-nob7aah66as5qjnv3l4c1uo9uapqfjns.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fireCars"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
