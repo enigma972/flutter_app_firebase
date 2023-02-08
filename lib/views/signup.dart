@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_firebase/views/signin.dart';
 import 'components/input.dart';
 import 'components/button.dart';
 import 'components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app_firebase/views/signup.dart';
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   // final Function()? onTap;
 
-  const SignIn({
+  const SignUp({
     super.key,
     // required this.onTap,
   });
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   void showErrorMessage(String message) {
     showDialog(
@@ -40,7 +41,7 @@ class _SignInState extends State<SignIn> {
         });
   }
 
-  void signUserIn() async {
+  void signUserUp() async {
     // show loading
     showDialog(
         context: context,
@@ -52,10 +53,14 @@ class _SignInState extends State<SignIn> {
 
     // sign in user
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+      if (_passwordController.text == _confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+      } else {
+        showErrorMessage('Passwords do not match');
+      }
 
       // pop loading
       // ignore: use_build_context_synchronously
@@ -105,25 +110,33 @@ class _SignInState extends State<SignIn> {
                 ),
 
                 const SizedBox(height: 10),
-                // forgot password ?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot password ?',
-                        style:
-                            TextStyle(color: Colors.grey[700]), //fontSize: 16),
-                      )
-                    ],
-                  ),
+                // confirm password textfield
+                Input(
+                  hintText: 'Confirm password',
+                  controller: _confirmPasswordController,
+                  obscureText: true,
                 ),
+
+                // const SizedBox(height: 10),
+                // forgot password ?
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: [
+                //       Text(
+                //         'Forgot password ?',
+                //         style:
+                //             TextStyle(color: Colors.grey[700]), //fontSize: 16),
+                //       )
+                //     ],
+                //   ),
+                // ),
 
                 const SizedBox(height: 25),
                 // sign in button
                 Button(
-                  onTap: signUserIn,
+                  onTap: signUserUp,
                 ),
 
                 const SizedBox(height: 50),
@@ -172,7 +185,7 @@ class _SignInState extends State<SignIn> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Not a member? ',
+                      'Already have an account? ',
                       style: TextStyle(
                         color: Colors.grey[700],
                       ),
@@ -180,14 +193,14 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUp()),
-                        );
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const SignIn();
+                          },
+                        ));
                       },
                       child: const Text(
-                        'Register now',
+                        'Login now',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
